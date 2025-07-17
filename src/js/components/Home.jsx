@@ -6,14 +6,15 @@ const Home = () => {
 	const [inputValue, setInputValue] = useState(""); //Estado para lo que escribe el usuario.
 	const [tareas, setTareas] = useState([]); //Estado para lista de tareas.
 
-	//Función para añadir tarea cuando se presiona "ENTER".
+
+
+	//Función para añadir tarea cuando se presiona "ENTER" agrega tarea y limpia el input.
 	const pulsarTecla = (e) => {
 		if (e.key === "Enter" && inputValue !== "") {
-			//Agrega tarea y limpia el input.
 			setTareas([...tareas, inputValue]);
 			setInputValue("");
-		}
-	};
+		} 
+	}
 	//Función para eliminar tarea.
 	const eliminarTarea = (index) => {
 		const nuevasTareas = tareas.filter((tarea, i) => i !== index);
@@ -29,12 +30,14 @@ const Home = () => {
 						onChange={(e) => setInputValue(e.target.value)}
 						value={inputValue}
 						onKeyUp={pulsarTecla}
-						placeholder="No hay tareas. Añadir tarea."></input>
+						placeholder="Añadir tarea aquí."></input>
 				</li>
-
+				{tareas.length===0 &&(
+					<li className="no-task">No hay tareas, añadir tareas</li>
+				)}
 				{tareas.map((tarea, index) => (
 					<li key={index}>
-						{tarea}
+						<span>{tarea}</span>
 						<i className="fa-solid fa-trash"
 							onClick={() => eliminarTarea(index)}></i>
 					</li>
